@@ -4,7 +4,7 @@ pipeline {
     stage('pull') {
       agent any
       steps {
-        git(url: 'git@github.com:danxinyi/alert_server.git', branch: 'master', changelog: true, credentialsId: '1', poll: true)
+        git(url: 'git@github.com:danxinyi/alert_server.git', branch: 'master', changelog: true, credentialsId: '1')
       }
     }
 
