@@ -1,16 +1,19 @@
 pipeline {
-  agent any
+  agent none
   stages {
-    stage('pull') {
+    stage('build') {
       agent any
-      environment {
-        version = 'test'
-      }
       steps {
         git(url: 'git@github.com:danxinyi/alert_server.git', branch: 'master', changelog: true, credentialsId: '1')
-        sh 'docker build ./ -t alert_server:${version} -f dockerfile'
+        sh 'docker build ./ -t alert_server:build -f dockerfile'
+        sh 'docker tag alert_server:build sg.ayi21sui.online:5000/alert_server:${version}'
+        sh 'docekr push sg.ayi21sui.online:5000/alert_server:${version}'
+        sh 'docker rmi alert_server:build'
       }
     }
 
+  }
+  environment {
+    version = 'test'
   }
 }
