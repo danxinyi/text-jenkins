@@ -3,11 +3,16 @@ pipeline {
   stages {
     stage('pull') {
       agent any
+      steps {
+        git(url: 'git@github.com:danxinyi/alert_server.git', branch: 'master', changelog: true, credentialsId: '1', poll: true)
+      }
+    }
+
+    stage('build') {
       environment {
         version = 'test'
       }
       steps {
-        git(url: 'git@github.com:danxinyi/alert_server.git', branch: 'master', changelog: true, credentialsId: '1', poll: true)
         sh 'docker build ./ -t alert_server:${version} -f dockerfile'
       }
     }
