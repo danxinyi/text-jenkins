@@ -14,6 +14,6 @@ pipeline {
 
   }
   environment {
-    version = 'v6.5'
+    version = 'v6.6'
   }
 }
